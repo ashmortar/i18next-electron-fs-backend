@@ -120,7 +120,12 @@ class Backend {
         // files without using the window (it just doesn't exist!), so we dynamically
         // import 'fs' here so that we are able to translate
         if (typeof this.backendOptions.i18nextElectronBackend === "undefined") {
+          try {
             this.fs = require("fs");
+          }
+          catch(e) {}
+          // Ignore require error when "fs" is missing.
+          // "if" condition is not sufficient to ignore the "require" command for renderer process
         }
 
         // log-related
